@@ -7,25 +7,28 @@ plugins {
     alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.androidx.room3)
 }
 
 kotlin {
     jvm()
-    
+
     js {
         browser()
     }
-    
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
     }
-    
+
     android {
        namespace = "com.herehs.mdnotes.shared"
        compileSdk = libs.versions.android.compileSdk.get().toInt()
        minSdk = libs.versions.android.minSdk.get().toInt()
-    
+
        compilerOptions {
            jvmTarget = JvmTarget.JVM_11
        }
@@ -41,13 +44,14 @@ kotlin {
            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
        }
     }
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.compose.uiTooling)
 
             implementation(libs.koin.android)
+            implementation(libs.androidx.sqlite.bundled)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -64,16 +68,34 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
 
+            implementation(libs.androidx.room3.runtime)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+        jvmMain.dependencies {
+            implementation(libs.androidx.sqlite.bundled)
+        }
         jsMain.dependencies {
             implementation(libs.wrappers.browser)
+            implementation(libs.androidx.sqlite.web)
+        }
+        wasmJsMain.dependencies {
+            implementation(libs.wrappers.browser)
+            implementation(libs.androidx.sqlite.web)
         }
     }
 }
-
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
+
+    add("kspAndroid", libs.androidx.room3.compiler)
+    add("kspJvm", libs.androidx.room3.compiler)
+    add("kspJs", libs.androidx.room3.compiler)
+    add("kspWasmJs", libs.androidx.room3.compiler)
+
+}
+room3 {
+    schemaDirectory("$projectDir/schemas")
 }
