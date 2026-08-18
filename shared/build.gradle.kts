@@ -15,9 +15,6 @@ plugins {
 kotlin {
     jvm()
 
-    js {
-        browser()
-    }
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
@@ -70,16 +67,15 @@ kotlin {
 
             implementation(libs.androidx.room3.runtime)
 
+            implementation(libs.androidx.datastore.core)
+            implementation(libs.androidx.datastore.preferences.core)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         jvmMain.dependencies {
             implementation(libs.androidx.sqlite.bundled)
-        }
-        jsMain.dependencies {
-            implementation(libs.wrappers.browser)
-            implementation(libs.androidx.sqlite.web)
         }
         wasmJsMain.dependencies {
             implementation(libs.wrappers.browser)
@@ -92,7 +88,6 @@ dependencies {
 
     add("kspAndroid", libs.androidx.room3.compiler)
     add("kspJvm", libs.androidx.room3.compiler)
-    add("kspJs", libs.androidx.room3.compiler)
     add("kspWasmJs", libs.androidx.room3.compiler)
 
 }

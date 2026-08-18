@@ -18,7 +18,7 @@ class NoteRepositoryImpl(
 
     override suspend fun deleteNote(note: Note): Long = dao.delete(note.toEntity())
 
-    override suspend fun getAllNotesAsFlow(): Flow<List<Note>> = dao.getAllAsFlow().map { list ->
+    override fun getAllNotesAsFlow(): Flow<List<Note>> = dao.getAllAsFlow().map { list ->
         list.map { it.toDomain() }
     }
 }

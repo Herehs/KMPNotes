@@ -9,8 +9,10 @@ fun initKoin(config: KoinAppDeclaration? = null): KoinApplication {
     return startKoin {
         includes(config)
         modules(
+            domainModule,
             dataModule,
-            presentationModule
+            presentationModule,
+            platformModule
         )
     }
 }

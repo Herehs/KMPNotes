@@ -7,3 +7,4 @@ data class Note(
     val createdAt: Long,
     val editedAt: Long
 )
+
