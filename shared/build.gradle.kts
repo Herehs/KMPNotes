@@ -70,6 +70,10 @@ kotlin {
             implementation(libs.androidx.datastore.core)
             implementation(libs.androidx.datastore.preferences.core)
 
+            implementation(libs.adaptive)
+            implementation(libs.adaptive.layout)
+            implementation(libs.adaptive.navigation)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

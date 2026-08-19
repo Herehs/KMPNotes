@@ -155,3 +155,49 @@ fun RenderBulletList(
     }
 }
 
+@Composable
+fun MDText(
+    modifier: Modifier = Modifier,
+    rawText: String,
+    fontSize: TextUnit = TextUnit.Unspecified,
+    color: Color = Color.Unspecified,
+    showMarkdownSyntax: Boolean = false
+){
+    val blocks = parseBlocks(text = rawText)
+    Column(
+        modifier = modifier
+    ) {
+        for(block in blocks){
+            when(block){
+                is BlockNode.BulletList -> {
+                    RenderBulletList(
+                        headingNode = block,
+                        fontSize = fontSize,
+                        color = color
+                    )
+                }
+                is BlockNode.CodeBlock -> {
+                    RenderCodeBlock(
+                        codeBlockNode = block,
+                        fontSize = fontSize,
+                        color = color
+                    )
+                }
+                is BlockNode.Heading -> {
+                    RenderHeading(
+                        headingNode = block,
+                        fontSize = fontSize,
+                        color = color
+                    )
+                }
+                is BlockNode.Paragraph -> {
+                    RenderParagraph(
+                        paragraphNode = block,
+                        fontSize = fontSize,
+                        color = color
+                    )
+                }
+            }
+        }
+    }
+}

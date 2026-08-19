@@ -4,7 +4,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.FileStorage
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.PreferencesFileSerializer
-import androidx.datastore.preferences.core.PreferencesSerializer
 import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.herehs.mdnotes.data.local.AppDatabase

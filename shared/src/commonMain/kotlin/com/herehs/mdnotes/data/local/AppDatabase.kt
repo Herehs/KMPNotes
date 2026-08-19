@@ -7,7 +7,7 @@ import androidx.room3.RoomDatabaseConstructor
 import com.herehs.mdnotes.data.local.dao.NoteDao
 import com.herehs.mdnotes.data.local.entity.NoteEntity
 
-@Database(entities = [NoteEntity::class], version = 1)
+@Database(entities = [NoteEntity::class], version = 2)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
