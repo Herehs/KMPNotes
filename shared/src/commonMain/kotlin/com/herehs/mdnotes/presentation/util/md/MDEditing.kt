@@ -150,7 +150,7 @@ class MarkdownVisualTransformation(
 }
 
 @Composable
-fun MarkdownEditor(
+fun MDEditor(
     modifier: Modifier = Modifier,
     initialText: String = "",
     onTextChange: (String) -> Unit = {},
@@ -180,8 +180,5 @@ fun MarkdownEditor(
         textStyle = LocalTextStyle.current,
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.surface)
-            .padding(12.dp)
     )
 }

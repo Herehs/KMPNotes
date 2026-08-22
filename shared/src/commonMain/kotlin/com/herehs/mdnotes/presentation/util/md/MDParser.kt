@@ -81,6 +81,20 @@ fun parseInline(
 
     while (i < rawParagraph.length){
         when {
+            rawParagraph.startsWith("***", i) -> {
+                val end = rawParagraph.indexOf("***", startIndex = i + 3)
+                if (end == -1) {
+                    buffer.append(rawParagraph[i])
+                    i++
+                } else {
+                    flushText()
+
+                    val inner = rawParagraph.substring(i + 3, end)
+                    nodeList.add(InlineNode.Bold(inner))
+                    i = end + 3
+
+                }
+            }
             rawParagraph.startsWith("**", i) -> {
                 val end = rawParagraph.indexOf("**", startIndex = i + 2)
                 if (end == -1) {
@@ -89,7 +103,7 @@ fun parseInline(
                 } else {
                     flushText()
 
-                    val inner = rawParagraph.substring(i, end + 2)
+                    val inner = rawParagraph.substring(i + 2, end)
                     nodeList.add(InlineNode.Bold(inner))
                     i = end + 2
 
@@ -102,7 +116,7 @@ fun parseInline(
                     i++
                 } else {
                     flushText()
-                    val inner = rawParagraph.substring(i, end + 1)
+                    val inner = rawParagraph.substring(i + 1, end)
                     nodeList.add(InlineNode.Italic(inner))
                     i = end + 1
                 }

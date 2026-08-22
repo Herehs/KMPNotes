@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,6 +30,7 @@ fun RenderHeading(
     headingNode: BlockNode.Heading,
     fontSize: TextUnit = TextUnit.Unspecified,
     color: Color = Color.Unspecified,
+    modifier: Modifier = Modifier
 ){
 
     val style = when(headingNode.level){
@@ -42,9 +45,8 @@ fun RenderHeading(
     Text(
         text = headingNode.rawText,
         style = style,
-        modifier = Modifier
-            .semantics { heading() }
-            .fillMaxWidth(),
+        modifier = modifier
+            .semantics { heading() },
         fontSize = fontSize,
         lineHeight = fontSize,
         color = color
@@ -55,11 +57,11 @@ fun RenderHeading(
 fun RenderCodeBlock(
     codeBlockNode: BlockNode.CodeBlock,
     fontSize: TextUnit = TextUnit.Unspecified,
-    color: Color = Color.Unspecified
+    color: Color = Color.Unspecified,
+    modifier: Modifier = Modifier
 ){
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .padding(5.dp)
             .clip(RoundedCornerShape(10.dp))
             .background(MaterialTheme.colorScheme.surfaceContainer)
@@ -103,7 +105,8 @@ fun RenderCodeBlock(
 fun RenderParagraph(
     paragraphNode: BlockNode.Paragraph,
     fontSize: TextUnit = TextUnit.Unspecified,
-    color: Color = Color.Unspecified
+    color: Color = Color.Unspecified,
+    modifier: Modifier = Modifier
 ){
     val inlineNodes = parseInline(paragraphNode.rawText)
     val annotatedString = buildAnnotatedString {
@@ -126,7 +129,16 @@ fun RenderParagraph(
                 ){
                     append(node.text)
                 }
-                is InlineNode.BoldAndItalic -> TODO()
+                is InlineNode.BoldAndItalic -> withStyle(
+                    SpanStyle(
+                        fontStyle = FontStyle.Italic,
+                        fontWeight = FontWeight.Bold,
+                        color = color
+                    )
+                ){
+                    append(node.text)
+                }
+
             }
         }
     }
@@ -135,7 +147,7 @@ fun RenderParagraph(
         text = annotatedString,
         fontSize = fontSize,
         color = color,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier
     )
 }
 
@@ -143,12 +155,13 @@ fun RenderParagraph(
 fun RenderBulletList(
     headingNode: BlockNode.BulletList,
     fontSize: TextUnit = TextUnit.Unspecified,
-    color: Color = Color.Unspecified
+    color: Color = Color.Unspecified,
+    modifier: Modifier = Modifier
 ){
     for(item in headingNode.items){
         Text(
             text = "• $item",
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier,
             fontSize = fontSize,
             lineHeight = fontSize,
             color = color
@@ -162,13 +175,12 @@ fun MDText(
     rawText: String,
     fontSize: TextUnit = TextUnit.Unspecified,
     color: Color = Color.Unspecified,
-    showMarkdownSyntax: Boolean = false
 ){
     val blocks = parseBlocks(text = rawText)
-    Column(
+    LazyColumn(
         modifier = modifier
     ) {
-        for(block in blocks){
+        items(blocks){ block ->
             when(block){
                 is BlockNode.BulletList -> {
                     RenderBulletList(

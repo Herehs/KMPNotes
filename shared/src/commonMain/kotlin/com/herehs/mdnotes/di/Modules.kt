@@ -7,7 +7,7 @@ import com.herehs.mdnotes.data.repository.ThemeRepositoryImpl
 import com.herehs.mdnotes.domain.repository.NoteRepository
 import com.herehs.mdnotes.domain.repository.ThemeRepository
 import com.herehs.mdnotes.domain.usecase.GetAllNotesUseCase
-import com.herehs.mdnotes.presentation.note_screen.NoteScreenViewmodel
+import com.herehs.mdnotes.presentation.screens.main_screen.MainScreenViewmodel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -22,7 +22,7 @@ val dataModule = module {
 }
 
 val presentationModule = module {
-    viewModelOf(::NoteScreenViewmodel)
+    viewModelOf(::MainScreenViewmodel)
     viewModelOf(::ThemeViewModel)
 }
 
