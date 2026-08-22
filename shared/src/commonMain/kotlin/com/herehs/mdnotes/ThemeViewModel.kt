@@ -14,7 +14,7 @@ class ThemeViewModel(
     val themeState = themeRepository.currentTheme.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = ThemeMode.SYSTEM
+        initialValue = ThemeMode.LIGHT
     )
     fun setTheme(mode: ThemeMode){
         viewModelScope.launch { themeRepository.setTheme(mode) }

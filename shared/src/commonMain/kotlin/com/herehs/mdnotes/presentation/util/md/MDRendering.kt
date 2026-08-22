@@ -134,7 +134,8 @@ fun RenderParagraph(
     Text(
         text = annotatedString,
         fontSize = fontSize,
-        color = color
+        color = color,
+        modifier = Modifier.fillMaxWidth()
     )
 }
 

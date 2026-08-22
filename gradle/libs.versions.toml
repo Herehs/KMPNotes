@@ -16,6 +16,8 @@ kotlin = "2.4.10"
 kotlin-wrappers = "2026.7.7"
 kotlinx-coroutines = "1.11.0"
 material3 = "1.11.0-alpha07"
+multiplatform-nav3-ui = "1.1.1"
+
 
 koin = "4.2.0"
 room3 = "3.0.1"
@@ -65,6 +67,8 @@ androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-p
 
 # Optional SQLite Wrapper
 androidx-room3-sqlite-wrapper = { module = "androidx.room3:room3-sqlite-wrapper", version.ref = "room3" }
+
+jetbrains-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "multiplatform-nav3-ui" }
 
 
 

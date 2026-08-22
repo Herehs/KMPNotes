@@ -18,6 +18,6 @@ heightDp = 890
     name = "Desktop",
     group = "Devices",
     widthDp = 1280,
-    heightDp = 800
+    heightDp = 800,
 )
 annotation class ScreenPreviews

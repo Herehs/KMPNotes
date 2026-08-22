@@ -10,26 +10,29 @@ import androidx.compose.ui.Modifier
 import com.herehs.mdnotes.domain.model.ThemeMode
 import com.herehs.mdnotes.presentation.note_screen.NotesScreen
 import com.herehs.mdnotes.presentation.theme.MDNotesTheme
+import com.herehs.mdnotes.presentation.util.ScreenPreviews
 import org.koin.compose.viewmodel.koinViewModel
 
+@ScreenPreviews
 @Composable
 fun App() {
-    val themeViewModel: ThemeViewModel = koinViewModel()
-    val theme by themeViewModel.themeState.collectAsState()
+//    val themeViewModel: ThemeViewModel = koinViewModel()
+//    val theme by themeViewModel.themeState.collectAsState()
+//
+//    val useDarkTheme = when(theme){
+//        ThemeMode.DARK -> { true }
+//        ThemeMode.LIGHT -> { false }
+//        ThemeMode.SYSTEM -> {
+//            isSystemInDarkTheme()
+//        }
+//    }
 
-    val useDarkTheme = when(theme){
-        ThemeMode.DARK -> { true }
-        ThemeMode.LIGHT -> { false }
-        ThemeMode.SYSTEM -> {
-            isSystemInDarkTheme()
-        }
-    }
-
-    MDNotesTheme(darkTheme = useDarkTheme) {
+    MDNotesTheme(darkTheme = false) {
         Scaffold() { paddingValues ->
             paddingValues
             NotesScreen(
-                modifier = Modifier.padding(paddingValues)
+                modifier = Modifier.padding(paddingValues),
+                onNoteClick = {}
             )
         }
     }
